@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denji's bio Bio</title>
+    <style>
+        /* Basic styling and reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Background video styling */
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.7);
+        }
+
+        /* Menu button styling */
+        #menu {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+        }
+
+        /* Advanced animated menu icon */
+        .menu-icon {
+            width: 35px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-icon div {
+            width: 100%;
+            height: 4px;
+            background-color: white;
+            position: absolute;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        /* Top bar */
+        .menu-icon div:nth-child(1) {
+            top: 0;
+        }
+
+        /* Middle bar */
+        .menu-icon div:nth-child(2) {
+            top: 13px;
+        }
+
+        /* Bottom bar */
+        .menu-icon div:nth-child(3) {
+            top: 26px;
+        }
+
+        /* Open state for the menu icon */
+        .menu-icon.open div:nth-child(1) {
+            top: 13px;
+            transform: rotate(45deg);
+        }
+
+        .menu-icon.open div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-icon.open div:nth-child(3) {
+            top: 13px;
+            transform: rotate(-45deg);
+        }
+
+        /* Navigation menu styling */
+        #nav-links {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            height: 100%;
+            width: 250px;
+            padding-top: 60px;
+            transform: translateX(-300px);
+            transition: transform 0.4s ease-in-out;
+            z-index: 1;
+        }
+
+        #nav-links.active {
+            transform: translateX(0);
+        }
+
+        #nav-links .content {
+            padding: 20px;
+        }
+
+        .social-media, .contact, .controls, .telegram-list {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            padding: 8px 0;
+        }
+
+        ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Digital clock styling */
+        .clock {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: white;
+            z-index: 3;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Smooth clock animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Mute/unmute button styling */
+        .mute-icon {
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* User bio container styling */
+        .bio-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+
+        .profile-pic {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-pic:hover {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Name animation */
+        h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+            animation: glitch 3s infinite;
+            position: relative;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px red; }
+            20% { text-shadow: -2px -2px blue; }
+            40% { text-shadow: 2px -2px green; }
+            60% { text-shadow: -2px 2px yellow; }
+            80% { text-shadow: 2px 2px pink; }
+            100% { text-shadow: -2px -2px cyan; }
+        }
+
+        .skills {
+            font-size: 20px;
+            font-style: italic;
+        }
+
+        /* Telegram section styling */
+        .telegram-list {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .telegram-list h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .bio-container h1 {
+                font-size: 28px;
+            }
+
+            .skills {
+                font-size: 16px;
+            }
+
+            .clock {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <video autoplay muted loop id="background-video">
+        <source src="https://cdn.glitch.global/a07b2f64-ed79-4da8-9ac9-f585a3ef4748/Background.mp4?v=1729798369893" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Navigation Menu -->
+    <div id="menu">
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div id="nav-links">
+        <div class="content">
+            <div class="social-media">
+                <h3>𝗦𝗢𝗖𝗜𝗔𝗟 𝗠𝗘𝗗𝗜𝗔</h3>
+                <ul>
+                    <li><a href="https://youtube.com/@debjit99pl?si=z3sW8ZYbchsKJWX1" target="_blank">ʏᴏᴜᴛᴜʙᴇ</a></li>
+                    <li><a href="https://www.instagram.com/im_neon1/profilecard/?igsh=ejJqeTY5eHBkOXRk" target="_blank">ɪɴsᴛᴀɢʀᴀᴍ</a></li>
+                </ul>
+            </div>
+            <div class="contact">
+                <h3>𝗖𝗔𝗡𝗧𝗘𝗖𝗧</h3>
+                  <ul>
+                    <li><a href="https://t.me/Denji40_bot" target="_blank">Telegram</a></li>
+                </ul>
+            </div>
+            <div class="controls">
+                <h3>𝗖𝗔𝗡𝗧𝗥𝗢𝗟𝗦</h3>
+                <span class="mute-icon" id="mute-icon" onclick="toggleMute()">🔇</span>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Bio Section -->
+    <div class="bio-container">
+        <img src="https://cdn.glitch.global/a07b2f64-ed79-4da8-9ac9-f585a3ef4748/pfp.jpg?v=1729798339537" alt="User Profile" class="profile-pic">
+        <h1>𝗠𝗿 𝕯𝖎𝖆𝖇𝖑𝖔</h1>
+        <p class="skills">METHOD MAKER | CARDER | OSINT</p>
+    </div>
+
+    <script>
+        // Toggle the navigation menu
+        function toggleMenu() {
+            var navLinks = document.getElementById("nav-links");
+            var menuIcon = document.querySelector(".menu-icon");
+            navLinks.classList.toggle("active");
+            menuIcon.classList.toggle("open");
+        }
+
+        // Toggle mute/unmute for the video
+        function toggleMute() {
+            var video = document.getElementById("background-video");
+            var muteIcon = document.getElementById("mute-icon");
+            video.muted = !video.muted;
+            muteIcon.textContent = video.muted ? "🔇" : "🔊";
+        }
+    </script>
+</body>
+</html>
